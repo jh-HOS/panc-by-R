@@ -4,7 +4,7 @@ library(tidyr)
 library(readxl)
 
 try(
-  {src_dir <- c('E:/R/PANC 2nd/Drug/totla/')  #불러올 파일들이 있는 위치 설정
+  {src_dir <- c('E:/R/PANC 2nd/Drug/200617 결과/')  #불러올 파일들이 있는 위치 설정
   src_file <- list.files(src_dir,pattern = "*.xlsx") 
   src_file_lnc <- length(src_file)
   
@@ -18,8 +18,8 @@ try(
     AUC = t(AUC)
   }
   
-  p1 <- read.table("E:/R/PANC 2nd/Drug/기본/panc_p1.txt")
-  p2 <- read.table("E:/R/PANC 2nd/Drug/기본/panc_p2.txt")
+  p1 <- read.table("E:/R/PANC 2nd/Drug/basic/panc_p1.txt")
+  p2 <- read.table("E:/R/PANC 2nd/Drug/basic/panc_p2.txt")
   
   drug_p1 <- as.matrix(p1)
   drug_p2 <- as.matrix(p2)}
@@ -66,6 +66,6 @@ try({
   d_p1 <- as.matrix(drug_p1, col.names = F)
   d_p2 <- as.matrix(drug_p2, col.names = F)
   
-  write.table(d_p1, file="E:/R/PANC 2nd/Drug/totla/Resultes_plate1.txt",col.names = F, row.names=F, sep = "\t")
-  write.table(d_p2, file="E:/R/PANC 2nd/Drug/totla/Resultes_plate2.txt",col.names = F, row.names=F, sep = "\t")
+  write.table(d_p1, file="E:/R/PANC 2nd/Drug/200617 결과/Resultes_plate1.txt",col.names = F, row.names=F, sep = "\t")
+  write.table(d_p2, file="E:/R/PANC 2nd/Drug/200617 결과/Resultes_plate2.txt",col.names = F, row.names=F, sep = "\t")
 })

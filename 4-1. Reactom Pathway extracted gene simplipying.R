@@ -24,7 +24,7 @@ for (i in 1:src_file_lnc){
   row.names(A) <- NULL
   
   assign(paste0("name_", i),paste0("E:/R/PANC 2nd/ReactomePA _ SORT mutation/",gsub(".tsv", "",src_file[i]),"-GeneOnly.tsv"))
-
+  
   write.table(A, get(paste0("name_",i )), row.names = FALSE)
   
   print(i)

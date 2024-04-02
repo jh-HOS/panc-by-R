@@ -11,7 +11,7 @@ m.list1<-as.matrix(list1)
 sm.list1<-sort(m.list1)
 
 for (i in 1:length(sm.list1)) {
-  assign(paste0("gn_",i), NGS[sm.list1[1],])
+  assign(paste0("gn_",i), NGS[sm.list1[i],])
   print(get(paste0("gn_",i)))
 }
 s.NGS <- NGS[sm.list,]

@@ -7,8 +7,8 @@ library(ReactomePA)
 library(clusterProfiler)
 
 try(
-  {src_dir <- c('E:/R/PANC 2nd/sort_1')
-  src_file <- list.files(src_dir)     #불러올 파일들 리스트화
+  {src_dir <- c('E:/R/PANC 2nd/sort_2 HER2 oe')
+  src_file <- list.files(src_dir, pattern = "Cuted.csv")     #불러올 파일들 리스트화
   src_file_lnc <- length(src_file)  # 불러올 파일들의 길이 설정
   df_file <- as.data.frame(src_file, stringAsFator = F)
   Entrz <- org.Hs.eg.db
@@ -39,3 +39,16 @@ try(
     print(src_file[i])
   }
 })
+write.csv(resultbl_7, paste0(src_dir,"/sorted Entrez.csv"), row.names=FALSE)
+
+
+data <- read.csv(paste0(src_dir,"/sorted Entrez.csv"),stringsAsFactors = T,na.strings = NA,header = T)
+de <- data$Gene_Name
+
+x <- enrichPathway(gene=de,pvalueCutoff=0.05, readable=T)
+head(as.data.frame(x))
+write.csv(x, paste0(src_dir,"/pre R PA list.csv"), row.names=FALSE)
+
+dotplot(x, showCategory=15)
+emapplot(x)
+cnetplot(x, categorySize="pvalue")

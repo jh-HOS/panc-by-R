@@ -8,13 +8,12 @@ throw <- function(x,y) {
   get(paste0(x,y))
 }
 
-
 basic_url <- "https://www.ncbi.nlm.nih.gov/clinvar/?term="
-src_dir <- c('E:/R/PANC 2nd/sort_Reactom/by pathway')
-src_file <- list.files(src_dir, pattern = ".csv")   #불러올 파일들 리스트화
+src_dir <- c("E:/R/PANC 2nd/to total") #파일들 위치
+src_file <- list.files(src_dir, pattern = "No")   #불러올 파일들 리스트화
 src_file_lnc <- length(src_file)
 
-for (i in 2:src_file_lnc) {
+for (i in 1:src_file_lnc) {
   print(i) #몇번째 파일
   print(src_file[i])
   
@@ -24,7 +23,7 @@ for (i in 2:src_file_lnc) {
                   na.strings = NA,
                   header = T))   #csv로 읽어오기
   
-  NGS_df <- select(throw("NGS_",i),ID) #Gene_Name Effect 추출
+  NGS_df <- select(throw("NGS_",i),ID) #ID 추출
   NGS_V <- as.vector(t(NGS_df))
   
   n <- length(NGS_V) #반복을 실행할 횟수 설정 
@@ -35,6 +34,8 @@ for (i in 2:src_file_lnc) {
     print(j)
     print(rsNumb)
     html <-read_html(paste0(basic_url,rsNumb))
+    Sys.sleep(5)
+    
     html_no <- html %>% html_nodes( '.ncbi-docsum') %>% html_nodes('.ncbi-unstyled-list')
     html1 <- html %>% html_nodes("body") %>% html_nodes(".bold")
     htmlm <- html %>% html_nodes("tbody") %>% html_nodes(".rprt")
@@ -61,6 +62,7 @@ for (i in 2:src_file_lnc) {
       NGS_new[1,j] <- CinVar
       rm(CS,TX,SX,CinVar)
     } else if (length(html_no) == 0 & length(html1) == 0 & length(htmlm) == 0) {
+      #No results
       TX <- "No items found"
       CinVar <- TX
       NGS_new[1,j] <- CinVar
@@ -79,7 +81,9 @@ for (i in 2:src_file_lnc) {
   newCol <-  t(NGS_new)
   colnames(newCol) <- "ClinVar"
   NEW <- cbind(throw("NGS_",i), newCol)
-  name <- gsub(".csv","",src_file[i])
   
-  write.csv(NEW, file = paste0("E:/R/PANC 2nd/sort_Reactom/by pathway/",name,"-clinvar-add.csv"), row.names = FALSE)
+  name <- gsub("_No modifier.csv","",src_file[i])#저장 이름설정
+  
+  #저장위치
+  write.csv(NEW, file = paste0("E:/R/PANC 2nd/to total/",name,"-clinvar-add.csv"), row.names = FALSE)
 }

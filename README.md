@@ -33,3 +33,13 @@ Mutational signature analysis
 ## Tools & Databases
 R 3.6.3, GATK, BWA, SnpEff  
 ClinVar, Cancer Gene Census (COSMIC), CCLE, Reactome
+
+## Publication
+Maeng et al. (2025) Cancer Cell International
+"Comprehensive molecular analysis of 26 newly established 
+human pancreatic ductal adenocarcinoma cell lines"
+doi: 10.1186/s12935-025-03671-8
+
+**Co-author (Investigation, Data curation)**
+- Established 26 patient-derived PDAC cell lines
+- WES and drug sensitivity data generation
